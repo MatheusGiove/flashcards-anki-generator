@@ -6,10 +6,10 @@ from datetime import datetime
 from st_paywall import add_auth
 
 st.set_page_config(
-    page_title="Flashcard Creator App",
+    page_title="FlashForge",
     initial_sidebar_state="expanded",
     layout="wide",
-    page_icon="📚"
+    page_icon="✨"
 )
 
 st.markdown("""
@@ -21,7 +21,7 @@ st.markdown("""
         background-color: #1E1E1E;
         color: white;
         text-align: center;">
-        <h1>📚 Crie flashcards para estudar inglês no Anki!</h1>
+        <h1>✨ Crie flashcards para estudar inglês no Anki! ✨</h1>
         <p>Adicione palavras e gere flashcards otimizados para seus estudos de inglês.</p>
     </div>
 """, unsafe_allow_html=True)
@@ -48,19 +48,43 @@ select_words = col2.multiselect(
 )
 
 with st.sidebar:
-  st.write("""  
-  ## 🔷 OneDrive Bilíngue: 🔷\n
-  📚 **Desbloqueie +1300 flashcards em inglês para turbinar seus estudos!**\n
-  🚀 **Aprenda de forma contínua:** todo dia, **20 novos flashcards** são adicionados ao drive.\n
-  🎯 **Estude no Anki e aprimore seu vocabulário de forma eficiente!**
-  """)
-  
+  st.markdown("""
+    <div style="
+        border: 2px solid #AA44EE;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        background-color: #1E1E1E;
+        color: white;
+        text-align: center;">
+        <h1>FlashForge</h1>
+    </div>
+""", unsafe_allow_html=True)
+
+  st.markdown("""
+    <div style="
+        border: 2px solid #AA44EE;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        background-color: #1E1E1E;
+        color: white;
+        text-align: center;">
+        <h2>💎 OneDrive Bilíngue: 💎</h2>
+        <ul style="text-align: left;">
+            <li>📚 Desbloqueie +1300 flashcards em inglês para turbinar seus estudos!</li>
+            <li>🚀 Aprenda de forma contínua: todo dia, 20 novos flashcards são adicionados ao drive.</li>
+            <li>🎯 Estude no Anki e aprimore seu vocabulário de forma eficiente!</li>
+        </ul>
+    </div>
+  """, unsafe_allow_html=True)
+
   add_auth(
-    required=False,
-    show_redirect_button=True,
-    subscription_button_text="🔥Acesse +1300 palavras e acelere seus estudos!🔥 🔗",
-    button_color="#AA44EE",
-    use_sidebar=True
+      required=False,
+      show_redirect_button=True,
+      subscription_button_text="💎🔥Tenha acesso a +1400 palavras e acelere seus estudos!🔗 🔥💎",
+      button_color="#AA44EE",
+      use_sidebar=True
   )
 
   with st.expander("Como usar"):
@@ -78,7 +102,8 @@ with st.sidebar:
     🌐 **GitHub:** [Link](https://www.github.com/MatheusGiove/)
     """)
 
-  st.write("v1.0.0-alpha")
+  st.write("v1.0.1-alpha")
+
 
 def create_flashcards():
   df_temporary = pd.DataFrame(select_words, columns=["Palavras"])
@@ -99,6 +124,7 @@ def create_flashcards():
         type="primary"
     )
 
+
 if len(select_words) > 0:
   button_to_create_cards = col1.button("Gerar Flashcards", type="primary")
   clean_words = col2.button("Limpar Palavras", type="secondary")
@@ -110,7 +136,8 @@ if len(select_words) > 0:
   if button_to_create_cards:
     st.divider()
     if len(select_words) > 20:
-      st.error("Só é possível gerar até 20 flashcards por vez. Selecione até 20 palavras.")
+      st.error(
+          "Só é possível gerar até 20 flashcards por vez. Selecione até 20 palavras.")
     else:
       waiting = st.warning("Aguarde enquanto geramos os flashcards...")
       create_flashcards()
